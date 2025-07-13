@@ -1,4 +1,6 @@
-# Görev Yönetim Uygulaması 📝
+# Görev Yönetim Uygulaması 
+
+## Web Live Link: https://customtodoapp.netlify.app/ ##
 
 Merhaba! Bu küçük web uygulaması, JavaScript kullanarak geliştirdiğim bir **görev yönetim sistemi**. Amacım, kullanıcıların görevlerini kolayca ekleyip düzenleyebileceği, tamamladıklarını işaretleyip silebileceği basit ama işlevsel bir arayüz sunmaktı.
 
