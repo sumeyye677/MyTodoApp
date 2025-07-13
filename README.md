@@ -27,6 +27,7 @@ index.html → Uygulama arayüzü
 style.css → Tasarım ve responsive stiller
 script.js → Uygulamanın iş mantığı (ekleme, silme, filtreleme vs.)
 
+![aaaaa](https://github.com/user-attachments/assets/df8af45f-fc25-4c63-be3c-1850e2482eaa)
 
 ## 📌 Kısayollar
 
