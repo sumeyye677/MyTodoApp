@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Görev Yönetimi</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <button class="theme-toggle" id="themeToggle">🌙</button>
+    
+    <div class="container">
+        <h1>Görev Yönetim Sistemi</h1>
+        
+        <div class="card">
+            <div class="card-header">
+                Yeni Görev Ekle
+            </div>
+            <div class="card-content">
+                <form id="taskForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="taskTitle">Görev Başlığı *</label>
+                            <input type="text" id="taskTitle" name="title" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="taskCategory">Kategori</label>
+                            <select id="taskCategory" name="category">
+                                <option value="">Kategori Seç</option>
+                                <option value="iş">İş</option>
+                                <option value="kişisel">Kişisel</option>
+                                <option value="alışveriş">Alışveriş</option>
+                                <option value="eğitim">Eğitim</option>
+                                <option value="sağlık">Sağlık</option>
+                                <option value="diğer">Diğer</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="taskDescription">Açıklama</label>
+                        <textarea id="taskDescription" name="description" rows="3" placeholder="Görev detaylarını buraya yazın..."></textarea>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="taskDueDate">Bitiş Tarihi</label>
+                            <input type="date" id="taskDueDate" name="dueDate">
+                        </div>
+                        <div class="form-group">
+                            <label for="taskDueTime">Bitiş Saati</label>
+                            <input type="time" id="taskDueTime" name="dueTime">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Öncelik Seviyesi *</label>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="priority" value="low" required>
+                                <span>🟢 Düşük</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="priority" value="medium" required>
+                                <span>🟡 Orta</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="priority" value="high" required>
+                                <span>🔴 Yüksek</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">✅ Görevi Ekle</button>
+                        <button type="button" id="clearForm" class="btn btn-secondary">🗑️ Temizle</button>
+                    </div>
+                </form>
+                
+                <div id="errorMessage" class="error-message"></div>
+                <div id="successMessage" class="success-message"></div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+             Filtreleme ve Sıralama
+            </div>
+            <div class="card-content">
+                <div class="controls-row">
+                    <div class="filter-controls">
+                        <button id="showAll" class="btn-filter active">📋 Tümü</button>
+                        <button id="showCompleted" class="btn-filter">✅ Tamamlananlar</button>
+                        <button id="showPending" class="btn-filter">⏳ Bekleyenler</button>
+                        <button id="showOverdue" class="btn-filter">⚠️ Gecikmiş</button>
+                    </div>
+                    
+                    <div class="search-controls">
+                        <input type="text" id="searchInput" class="search-input" placeholder="🔍 Görev ara...">
+                    </div>
+                </div>
+                
+                <div class="controls-row">
+                    <div class="sort-controls">
+                        <label for="sortBy">Sıralama:</label>
+                        <select id="sortBy">
+                            <option value="date">📅 Eklenme Tarihine Göre</option>
+                            <option value="priority">⚡ Önceliğe Göre</option>
+                            <option value="title">📝 Alfabetik</option>
+                            <option value="dueDate">⏰ Bitiş Tarihine Göre</option>
+                            <option value="category">📁 Kategoriye Göre</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-header">
+                 İstatistikler
+            </div>
+            <div class="card-content">
+                <div class="stats">
+                    <div class="stat-card">
+                        <div class="stat-number" id="totalTasks">0</div>
+                        <div class="stat-label">Toplam Görev</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="completedTasks">0</div>
+                        <div class="stat-label">Tamamlanan</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="pendingTasks">0</div>
+                        <div class="stat-label">Bekleyen</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="overdueTasks">0</div>
+                        <div class="stat-label">Gecikmiş</div>
+                    </div>
+                </div>
+                
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-header">
+                 Görev Listesi
+            </div>
+            <div class="card-content">
+                <div id="taskList" class="task-list">
+                    <div class="empty-state">
+                        <p>🎯 Henüz görev eklenmemiş. İlk görevinizi ekleyin!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
